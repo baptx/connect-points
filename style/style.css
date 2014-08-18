@@ -1,0 +1,119 @@
+noscript { /* style du texte affiché par la balise noscript si Javascript n'est pas activé */
+	font-weight: bold;
+}
+
+#canvas { /* modifier la position du clic du curseur personnalisé */
+	cursor: url(../image/pen_red_ff0000.gif)0 20, auto;
+}
+
+#content, #infoTop, #infoBottom  { /* marge encadrant les blocs div principaux */
+	margin: 20px;
+}
+
+#infoBottom { /* espace entre le contenu (canvas + texte) et les informations du bas du module pour le mode administration */
+	position: relative;
+	top: 45px;
+}
+
+#content > div { /* afficher les colonnes de blocs à la suite, sur une ligne */
+	display: inline-block;
+	vertical-align: top;
+}
+
+#divGauche { /* espace entre le bloc de texte gauche et le bloc contenant le canvas */
+	margin-right: 50px;
+}
+
+#divDroite { /* espace entre le bloc de texte de droite et le bloc contenant le canvas */
+	margin-left: 50px;
+}
+
+.divText > div { /* style et position du texte pour les balises div, lorsque l'utilisateur fait un exercice */
+	font-family: sans-serif; /* sans-serif: police ayant une bonne compatibilité entre navigateurs (arial: décalage 1px suivant la propriété font-size) */
+	margin-bottom: 21px;
+	position: relative;
+	top: 30px;
+}
+
+.inputText > input { /* style et position du texte pour les balises input, lorsque l'utilisateur créé ou modifie un exercice */
+	height: 18px; /* nécessaire de préciser la taille pour avoir la même marge suivant les navigateurs */
+	margin-bottom: 16px;
+	position: relative;
+	top: 25px;
+}
+
+#count { /* position de la balise div du compteur */
+	position: relative;
+	left: 80px;
+	top: 20px;
+}
+
+.ToolBtn { /* épaisseur et position du bouton d'outils ciseaux pour supprimer un tracé */
+	padding: 3px 6px 0px 6px;
+	position: relative;
+	top: 37px;
+}
+
+.RestoreBtn {
+	/* épaisseur et position des boutons permettant de restaurer un tracé en avant/arrière */
+	padding: 3px 3px 0px 3px;
+	position: relative;
+	left: 30px;
+}
+
+#connection { /* position du bouton de connexion corriger ou envoyer suivant l'utilisation du module */
+	position: relative;
+	top: 48px;
+	left: 50px;
+}
+
+.inputRemove { /* bouton (croix rouge) permettant de supprimer les champs en mode administration */
+	padding: 0px 0px 0px 0px;
+	background: none;
+	border: 0px;
+	position: absolute; /* position absolute permet d'éviter d'avoir des décalages entre éléments */
+	margin-top: 30px; /* utiliser margin-top et margin-left au lieu de top et left pour commencer depuis le haut-gauche de la page */
+	margin-left: 5px;
+}
+
+#AlertBox { /* style de la boîte de dialogue HTML/CSS */
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	padding: 15px 20px 5px 20px;
+	position: absolute;
+	margin-top: 50px;
+	max-width: 500px; /* continuer le message sur une nouvelle ligne si on atteint une boîte de dialogue de plus de 500 pixels de large */
+	z-index:1; /* z-index permet de donner une priorité sur l'affichage des éléments (div au dessus des tags input) */
+}
+
+#AlertButton { /* style du bouton par défaut de la boîte de dialogue HTML/CSS */
+	width: 75px;
+}
+
+.ref { /* mettre en évidence le nom de l'exercice (référence) */
+	font-weight: bold;
+}
+
+#extraAdmin { /* positionnement du bloc textarea + coordonnées canvas + bouton reset (utilisation de l'option debug) */
+	position: absolute;
+	left: 550px;
+	top: 15px;
+}
+
+#extraUser { /* bloc extra pour l'utilisateur classique */
+	position: absolute;
+	top: -20px;
+}
+
+#coordonnees { /* décalage positionnement pour la balise input text des coordonnées canvas */
+	position: relative;
+	top: -5px;
+	left: 15px;
+}
+
+#reset { /* décalage positionnement pour la balise input button du bouton reset */
+	position: relative;
+	top: -35px;
+	left: -50px;
+}
