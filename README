@@ -3,7 +3,6 @@ For example, you can combine words or sentences with their equivalent in another
 You have the ability to undo and redo connections paths as well as remove a specific one.
 It is also possible to create, edit and delete content using the application.
 There is a protection against SQL injection and XSS.
-When you correct your work, the application is returning your wrong paths if any (e.g. 4,5,2,1 -> point left 4 doesn’t match right 5, left 2 doesn’t match right 1).
 
 Requirements: web server with PHP and MySQL, HTML5 web browser.
 Database username/password can be replaced in script/base.php.
