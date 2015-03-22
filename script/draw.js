@@ -54,6 +54,8 @@ function Draw() // Constructeur de la classe
 	var reference;
 	var repGauche;
 	var repDroite;
+	var color;
+	var colorError;
 	// Suppléments Elève
 	var user;
 	var correction;
@@ -89,6 +91,10 @@ function Draw() // Constructeur de la classe
 		// utilisation du plugin debug.js (console événements, coordonnées canvas, bouton reset)
 		if(user) dbg = true; // true ou false pour la page utilisateur
 		if (!user) dbg = true // true ou false pour la page administrateur
+		
+		// couleur tracés + erreurs
+		color = "#ff0000";
+		colorError = "#000000";
 		
 		/**/
 		/** Fin Configuration **/
@@ -212,6 +218,7 @@ function Draw() // Constructeur de la classe
 		ptDroite = [];
 		coefdir = [];
 		tabDataURL = [];
+		ptFaux = [];
 		
 		msgBox = false;
 		
@@ -342,7 +349,7 @@ function Draw() // Constructeur de la classe
 				context.beginPath();
 				context.moveTo(offsetPtX, ptGauche[i] * intervalPtY);
 				context.lineTo(canvas.width - offsetPtX, ptDroite[i] * intervalPtY);
-				context.strokeStyle = "#ff0000";
+				context.strokeStyle = color;
 				context.stroke();
 				context.closePath();
 				
@@ -382,7 +389,7 @@ function Draw() // Constructeur de la classe
 			context.moveTo(canvas.width - offsetPtX, ptDroite[ptDroite.length - 1] * intervalPtY);
 		
 		context.lineTo(canvasClickX, canvasClickY);
-		context.strokeStyle = "#ff0000";
+		context.strokeStyle = color;
 		context.stroke();
 		context.closePath();
 	};
@@ -736,7 +743,7 @@ function Draw() // Constructeur de la classe
 	
 	// localiser et supprimer un tracé depuis le clic de la souris
 	var Delete = function draw_Delete(e)
-	{		
+	{
 		Locate(e);
 		
 		if(dbg) debug.log("Cherche point sur tracé à supprimer" + " (" + canvasClickX + "; " + canvasClickY + ")");
@@ -802,9 +809,16 @@ function Draw() // Constructeur de la classe
 					{
 						context.lineWidth = 2;
 						context.beginPath();
+						
+						var j = 0;
+						while (j < ptFaux.length && (ptGauche[i] != ptFaux[j] || ptDroite[i] != ptFaux[j + 1]))
+							j += 2;
+						
 						context.moveTo(offsetPtX, ptGauche[i] * intervalPtY);
 						context.lineTo(canvas.width - offsetPtX, ptDroite[i] * intervalPtY);
-						context.strokeStyle = "#ff0000";
+						
+						j < ptFaux.length ? context.strokeStyle = colorError : context.strokeStyle = color;
+						
 						context.stroke();
 						context.closePath();
 						
@@ -827,9 +841,16 @@ function Draw() // Constructeur de la classe
 						{ // "<=" car tabDataURL contient une valeur en plus que les autres tableaux: l'interface de départ
 							ctx.lineWidth = 2;
 							ctx.beginPath();
+							
+							var j = 0;
+							while (j < ptFaux.length && (ptGaucheBak[i] != ptFaux[j] || ptDroiteBak[i] != ptFaux[j + 1]))
+								j += 2;
+							
 							ctx.moveTo(offsetPtX, ptGaucheBak[i] * intervalPtY);
 							ctx.lineTo(canvas.width - offsetPtX, ptDroiteBak[i] * intervalPtY);
-							ctx.strokeStyle = "#ff0000";
+							
+							j < ptFaux.length ? ctx.strokeStyle = colorError : ctx.strokeStyle = color;
+							
 							ctx.stroke();
 							ctx.closePath();
 							
@@ -968,7 +989,7 @@ function Draw() // Constructeur de la classe
 					context.beginPath();
 					context.moveTo(canvas.width - offsetPtX, ptDroite[ptDroite.length - 1] * intervalPtY);
 					context.lineTo(offsetPtX, ptGauche[ptGauche.length - 1] * intervalPtY);
-					context.strokeStyle = "#ff0000";
+					context.strokeStyle = color;
 					context.stroke();
 					context.closePath();
 					
@@ -1006,12 +1027,18 @@ function Draw() // Constructeur de la classe
 					context.beginPath();
 					context.moveTo(offsetPtX, ptGauche[ptGauche.length - 1] * intervalPtY);
 					context.lineTo(canvas.width - offsetPtX, ptDroite[ptDroite.length - 1] * intervalPtY);
-					context.strokeStyle = "#ff0000";
+					context.strokeStyle = color;
 					context.stroke();
 					context.closePath();
 					
 					Coefdir();
 					Save("backup");
+					
+					if (ptFaux.length > 0)
+					{
+						ptFaux[ptGauche[ptGauche.length - 1] * 2 - 2] = 0;
+						ptFaux[ptGauche[ptGauche.length - 1] * 2 - 1] = 0;
+					}
 				}
 				break;
 			}
@@ -1178,7 +1205,38 @@ function Draw() // Constructeur de la classe
 			
 			if(ptFaux.length >= 1) // message personnalisé si il y a des erreurs
 			{
-				Message("Nul : " + ptFaux);
+				Message("Vous avez " + ptFaux.length / 2 + " erreurs à corriger");
+
+				// On charge l'interface sur le canvas
+				image.src = tabDataURL[0];
+				image.addEventListener("load", refresh = function()
+				{ // Attente du chargement de l'image nécessaire pour la plupart des navigateurs (évite l'impression inachevée du contexte du canvas sur l'image avant nouvelle écriture)
+					image.removeEventListener("load", refresh);
+					
+					tabDataURL = [];
+					Refresh();
+					Save();
+					
+					for(var i = 0; i < coefdir.length; i++) // reconstruit les tracés à zéro puis indexés dans tableau d'images
+					{
+						context.lineWidth = 2;
+						context.beginPath();
+						
+						var j = 0;
+						while (j < ptFaux.length && (ptGauche[i] != ptFaux[j] || ptDroite[i] != ptFaux[j + 1]))
+							j += 2;
+						
+						context.moveTo(offsetPtX, ptGauche[i] * intervalPtY);
+						context.lineTo(canvas.width - offsetPtX, ptDroite[i] * intervalPtY);
+						
+						j < ptFaux.length ? context.strokeStyle = colorError : context.strokeStyle = color;
+						
+						context.stroke();
+						context.closePath();
+						
+						Save();
+					}
+				});
 			}
 			else { // message s'il n'y a pas d'erreurs
 				Message("Toutes vos réponses sont correctes");
