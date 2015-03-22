@@ -56,6 +56,7 @@ function Draw() // Constructeur de la classe
 	var repDroite;
 	var color;
 	var colorError;
+	var cursor;
 	// Suppléments Elève
 	var user;
 	var correction;
@@ -119,7 +120,12 @@ function Draw() // Constructeur de la classe
 			alert("Impossible de récupérer le contexte du canvas");
 			return;
 		}
-		
+
+		if (window.getComputedStyle(canvas).getPropertyValue("cursor") == "url(../image/pen_red_ff0000.gif)0 20, auto")
+			cursor = true;
+		else
+			cursor = false;
+
 		// on récupère le contenu de la connexion au serveur si disponible et on génère les éléments du module
 		
 		var txtGauche, txtDroite;
@@ -676,10 +682,10 @@ function Draw() // Constructeur de la classe
 			
 			// Curseur par défaut, ciseaux ouverts
 			if(imgParent) {
-				canvas.style.cursor = "url(../image/scissors_ready.gif)5 5, auto";
+				if (cursor) canvas.style.cursor = "url(../image/scissors_ready.gif)5 5, auto";
 				btnDelete.firstChild.setAttribute("src", "../image/pen_red_ff0000.gif");
 			} else {
-				canvas.style.cursor = "url(image/scissors_ready.gif)5 5, auto";
+				if (cursor) canvas.style.cursor = "url(image/scissors_ready.gif)5 5, auto";
 				btnDelete.firstChild.setAttribute("src", "image/pen_red_ff0000.gif");
 			}
 			
@@ -687,37 +693,41 @@ function Draw() // Constructeur de la classe
 			
 			// On change le curseur de la souris lorsque le clic est enfoncé (ciseaux fermés)
 			canvas.addEventListener("mousedown", cut = function(ev){
-				if(imgParent)
-					canvas.style.cursor = "url(../image/scissors_cut.gif)5 5, auto";
-				else
-					canvas.style.cursor = "url(image/scissors_cut.gif)5 5, auto";
+				if (cursor) {
+					if(imgParent)
+						canvas.style.cursor = "url(../image/scissors_cut.gif)5 5, auto";
+					else
+						canvas.style.cursor = "url(image/scissors_cut.gif)5 5, auto";
+				}
 				
 				// On lance la fonction permettant de supprimer le tracé
 				Delete(ev);
 			});
 			
 			// Changer le curseur de la souris lorsque le clic est relâché (ciseaux ouverts)
-			canvas.addEventListener("mouseup", ready = function(){
-				if(imgParent)
-					canvas.style.cursor = "url(../image/scissors_ready.gif)5 5, auto";
-				else
-					canvas.style.cursor = "url(image/scissors_ready.gif)5 5, auto";
-			});
+			if (cursor) {
+				canvas.addEventListener("mouseup", ready = function(){
+					if(imgParent)
+						canvas.style.cursor = "url(../image/scissors_ready.gif)5 5, auto";
+					else
+						canvas.style.cursor = "url(image/scissors_ready.gif)5 5, auto";
+				});
+			}
 		}
 		else
 		{ // Si le mode correction est activé, on passe au mode dessin
 			del = false;
 			
 			if(imgParent) {
-				canvas.style.cursor = "url(../image/pen_red_ff0000.gif)0 20, auto";
+				if (cursor) canvas.style.cursor = "url(../image/pen_red_ff0000.gif)0 20, auto";
 				btnDelete.firstChild.setAttribute("src", "../image/scissors_ready.gif");
 			} else {
-				canvas.style.cursor = "url(image/pen_red_ff0000.gif)0 20, auto";
+				if (cursor) canvas.style.cursor = "url(image/pen_red_ff0000.gif)0 20, auto";
 				btnDelete.firstChild.setAttribute("src", "image/scissors_ready.gif");
 			}
 			
 			canvas.removeEventListener("mousedown", cut);
-			canvas.removeEventListener("mouseup", ready);
+			if (cursor) canvas.removeEventListener("mouseup", ready);
 			
 			// On lance la fonction permettant de relier les points
 			canvas.addEventListener("click", pointA = function(e){if(!msgBox) PointA(e);});

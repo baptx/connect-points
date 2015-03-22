@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Relier des points</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../style/style_no_cursor.css">
+		<script src="../script/draw.js"></script>
+		<script src="../script/debug.js"></script>
+		<script src="../script/htmlentities.js"></script>
+	</head>
+	<body>
+		<script>
+			var reference = "demo";
+			var txtGauche = ["la voiture","l'ordinateur","l'horloge","l'école","le vélo","les devoirs","les amis","la mer","les vacances","la casquette"];
+			var txtDroite = ["die Uhr","das Fahrrad","das Meer","der Computer","die Schule","die Hausaufgaben","die Ferien","die Freunde","die Mütze","das Auto"];
+			var repGauche = [1,2,3,4,5,6,7,8,9,10];
+			var repDroite = [10,4,1,5,2,6,8,3,7,9];
+			window.addEventListener("load", drawLoader = function(){draw.Loader(true, reference, txtGauche, txtDroite, repGauche, repDroite);});
+		</script>
+		<noscript>Vous devez avoir Javascript activé pour utiliser ce module</noscript>
+		<div id="infoTop">
+			<div id="exo"></div>
+		</div>
+		<div id="content">
+			<div>
+				<div id="divGauche" class="divText"></div>
+				<div>
+					<button id="del" class="ToolBtn"><img src="../image/scissors_ready.gif"></button>
+				</div>
+			</div>
+			<div>
+				<div id="AlertContainer"></div>
+				<div>
+					<canvas id="canvas" width="300" height="440">
+					Votre navigateur ne supporte pas l'élément canvas.
+					<!-- message pour les navigateurs ne supportant pas encore canvas -->
+					</canvas>
+				</div>
+				<div>
+					<button id="back" class="RestoreBtn"><img src="../image/undo.gif"></button>
+					<button id="forward" class="RestoreBtn"><img src="../image/redo.gif"></button>
+				</div>
+			</div>
+			<div>
+				<div id="divDroite" class="divText"></div>
+				<div>
+					<button id="connection">Corriger</button>
+				</div>
+			</div>
+			<div id="count"></div>
+		</div>
+		<div id="infoBottom"></div>
+	</body>
+</html>
