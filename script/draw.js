@@ -121,10 +121,10 @@ function Draw() // Constructeur de la classe
 			return;
 		}
 
-		if (window.getComputedStyle(canvas).getPropertyValue("cursor") == "url(../image/pen_red_ff0000.gif)0 20, auto")
-			cursor = true;
-		else
+		if (window.getComputedStyle(canvas).getPropertyValue("cursor") == "auto")
 			cursor = false;
+		else
+			cursor = true;
 
 		// on récupère le contenu de la connexion au serveur si disponible et on génère les éléments du module
 		
