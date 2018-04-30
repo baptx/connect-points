@@ -11,4 +11,4 @@ The example can also be found in demo/index.htm which does not need a web server
 
 Since it was a school project, you will find some French text and a lot of comments.
 If you want to use this app in production with authentication so it can be used by different users, you will have to use an authenticity token against CSRF.
-I am available as freelancer so I can provide you an updated a version that is tested against other OWASP security vulnerabilities, you can contact me <a href="https://example.com/">here</a>.
+I am available as freelancer so I can provide you an updated a version that is tested against other OWASP security vulnerabilities, you can contact me <a href="https://creagenic.com/">here</a>.
