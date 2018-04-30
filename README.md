@@ -4,7 +4,7 @@ You have the ability to undo and redo connections paths as well as remove a spec
 It is also possible to create, edit and delete content using the application.
 There is a protection against SQL injection and XSS.
 
-Requirements: web server with PHP and MySQL, HTML5 web browser.
+Requirements: web server with PHP, MariaDB / MySQL, HTML5 web browser.
 Database username/password can be replaced in script/base.php.
 Default database name is "elan" and an example (French/German words) can be loaded in script/relier_points.sql.
 The example can also be found in demo/index.htm which does not need a web server.
