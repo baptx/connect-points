@@ -1250,6 +1250,7 @@ function Draw() // Constructeur de la classe
 			}
 			else { // message s'il n'y a pas d'erreurs
 				Message("Toutes vos réponses sont correctes");
+				if(user && typeof(count) != "undefined") count.stop();
 			}
 		}
 		else if(!user)  // callback administrateur
