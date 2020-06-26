@@ -18,7 +18,7 @@
  *
  * Version 1.0
  *
- * Copyright (c) 2012 Baptiste Hassenfratz
+ * Copyright (c) 2012 https://www.linkedin.com/in/bhassenfratz
  * Licensed under MIT license http://opensource.org/licenses/MIT
  **/
 

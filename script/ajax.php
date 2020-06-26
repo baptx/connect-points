@@ -2,7 +2,7 @@
 /**
  * Server functions to receive AJAX requests
  *
- * Copyright (c) 2012 Baptiste Hassenfratz
+ * Copyright (c) 2012 https://www.linkedin.com/in/bhassenfratz
  * Licensed under MIT license http://opensource.org/licenses/MIT
  **/
 
