@@ -2,7 +2,7 @@
 /**
  * Database connection and requests
  *
- * Copyright (c) 2012 https://www.linkedin.com/in/bhassenfratz
+ * Copyright (c) 2012 https://about.me/bhassenfratz
  * Licensed under MIT license http://opensource.org/licenses/MIT
  **/
 
